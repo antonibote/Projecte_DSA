@@ -73,6 +73,7 @@ public class GameService {
     public Response login(Credentials credentials) throws UserNotRegisteredException, IncorrectPasswordException {
         try {
             String id = this.manager.login(credentials);
+            logger.info("idUser: " +id);
             idUser idUser = new idUser(id);
             return Response.status(201).entity(idUser).build();
         } catch (UserNotRegisteredException e) {
@@ -202,7 +203,7 @@ public class GameService {
             @ApiResponse(code = 201, message = "Successful", response = User.class),
             @ApiResponse(code = 404, message = "Something went wrong")
     })
-    @Path("/getUser/{idUser}")
+    @Path("/user/{idUser}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getUser(@PathParam("idUser") String idUser) {
         try {
@@ -211,5 +212,29 @@ public class GameService {
         } catch (Exception E) {
             return Response.status(404).build();
         }
+    }
+    @GET
+    @ApiOperation(value = "View the user's badges", notes = "View Badges")
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "Successful"),
+            @ApiResponse(code = 401, message = "The user has no badges"),
+            @ApiResponse(code = 500, message = "SQL Exception")
+    })
+    @Path("/badges/{idUser}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getBadges(@PathParam("idUser") String idUser) {
+
+        try {
+            List<Insignias> badges = this.usermanager.getInsignias(idUser);
+            GenericEntity<List<Insignias>> entity = new GenericEntity<List<Insignias>>(badges) {};
+            return Response.status(201).entity(entity).build();
+        } catch (SQLException e) {
+            return Response.status(500).build();
+        } catch (NotInInventoryException e) {
+            return Response.status(401).build();
+        } catch (NonExistentItemException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 }

@@ -5,6 +5,7 @@ import edu.upc.dsa.CRUD.FactorySession;
 import edu.upc.dsa.CRUD.Session;
 import edu.upc.dsa.exceptions.InsufficientMoneyException;
 import edu.upc.dsa.exceptions.NonExistentItemException;
+import edu.upc.dsa.exceptions.NotInInventoryException;
 import edu.upc.dsa.exceptions.UserNotRegisteredException;
 import edu.upc.dsa.models.*;
 
@@ -55,7 +56,7 @@ public class UserDAOImpl implements IUserDAO {
         finally {
             session.close();
         }
-
+        logger.info("id: "+ user.getIdUser());
         return user;
     }
     public User getUserByEmail(String email) {
@@ -222,6 +223,35 @@ public class UserDAOImpl implements IUserDAO {
         }finally {
             session.close();
         }
+    }
+    public List<Insignias>  getInsignias (String idUser) throws NonExistentItemException, SQLException, NotInInventoryException {
+        Session session = null;
+        HashMap<String, String> user = new HashMap<>();
+        user.put("idUser", idUser);
+        List<Insignias> badges = new ArrayList<>();
+        try {
+            session = FactorySession.openSession();
+            List<Object> inPossession = session.findAll(Insignias.class, user);
+            if (inPossession.size()!=0) {
+                logger.info("The user with id: "+idUser+" has badges");
+                for (Object object : inPossession) {
+                    Insignias insignias = (Insignias) object;
+                    try {
+                        badges.add(insignias);
+                        logger.info("Badges: "+insignias.getName());
+                    } catch (Exception e) {
+                        logger.info("The user with id: " +idUser+" has no badges");
+                        throw new NonExistentItemException();
+                    }
+                }
+                return badges;
+            }
+            throw new NotInInventoryException();
+        }catch (Exception e){
+        } finally {
+            session.close();
+        }
+        return badges;
     }
 
 }

@@ -81,6 +81,7 @@ public class GameManagerImpl implements GameManager {
             logger.info(user1.getPassword());
             if (user1.getPassword().equals(credentials.getPassword())) {
                 logger.info("Succesful login " + credentials.getEmail());
+                logger.info("id: "+user1.getIdUser());
                 return user1.getIdUser();
             } else if (user1.getEmail() == null) {
                 logger.info("User not registered");

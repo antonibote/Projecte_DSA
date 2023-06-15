@@ -3,11 +3,9 @@ package edu.upc.dsa.CRUD.DAO;
 
 import edu.upc.dsa.exceptions.InsufficientMoneyException;
 import edu.upc.dsa.exceptions.NonExistentItemException;
+import edu.upc.dsa.exceptions.NotInInventoryException;
 import edu.upc.dsa.exceptions.UserNotRegisteredException;
-import edu.upc.dsa.models.Item;
-import edu.upc.dsa.models.Report;
-import edu.upc.dsa.models.UpdateInfo;
-import edu.upc.dsa.models.User;
+import edu.upc.dsa.models.*;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -24,4 +22,5 @@ public interface IUserDAO {
     void updateUser(UpdateInfo info) throws SQLException;
     void addReport(Report report) throws SQLException;
     List<Report> getReports() throws SQLException;
+    public List<Insignias> getInsignias(String idUser) throws  SQLException,NonExistentItemException, NotInInventoryException;
 }
