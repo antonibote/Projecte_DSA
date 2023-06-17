@@ -19,6 +19,7 @@ import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Api(value = "/game", description = "Endpoint to Game Service")
@@ -237,4 +238,21 @@ public class GameService {
         }
 
     }
+
+    @GET
+    @ApiOperation(value = "Obtain the messages", notes = "View messages")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successful", response = Message.class, responseContainer = "List"),
+    })
+    @Path("/posts")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getMessages() {
+        List<Message> messages = new ArrayList<>();
+        messages.add(new Message("Nuevos elementos disponibles en la tienda"));
+        messages.add(new Message("Competición por equipos. El proceso de inscripción consistirá en ..."));
+
+        return Response.status(Response.Status.OK).entity(messages).build();
+    }
+
+
 }

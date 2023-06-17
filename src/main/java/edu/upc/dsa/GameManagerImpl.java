@@ -25,6 +25,7 @@ public class GameManagerImpl implements GameManager {
     protected List<User> logged;
     private HashMap<String, User> UsersMap;
     protected List<FAQ> faqs;
+    protected List<Message> messages;
     public List<User> getUsers(){
         return users;
     }
@@ -117,6 +118,18 @@ public class GameManagerImpl implements GameManager {
         this.faqs.add(faq);
         return faq;
     }
+
+    public List<Message> getMessages(){
+        List<Message> message = this.messages;
+        return message;
+    }
+
+    public Message addMessage(Message message){
+        logger.info("Adding Messages...");
+        this.messages.add(message);
+        return message;
+    }
+
     public int FAQsNumber(){
         return this.faqs.size();
     }

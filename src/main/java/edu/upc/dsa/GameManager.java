@@ -21,5 +21,6 @@ public interface GameManager {
     List<Inventory> Inventory();
     List<FAQ> getFAQs();
     FAQ addFAQ(FAQ faq);
-
+    List<Message> getMessages();
+    Message addMessage(Message message);
 }
