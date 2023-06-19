@@ -179,8 +179,11 @@ public class UserDAOImpl implements IUserDAO {
         try{
             session = FactorySession.openSession();
             user = (User) session.get(User.class, "idUser", (info.getIdUser()));
+            logger.info("Updating user...");
             session.update(updateInfo(user,info));
+            logger.info("User successfully updated");
         }catch (SQLException e){
+            logger.info("Couldn't update user");
             throw new SQLException();
         } finally {
             session.close();

@@ -159,7 +159,7 @@ public class GameService {
     public Response updateUser(UpdateInfo info) {
         try {
             this.usermanager.updateUser(info);
-            return Response.status(201).build();
+            return Response.status(201).entity(info).build();
         } catch (SQLException e) {
             return Response.status(401).build();
         }
