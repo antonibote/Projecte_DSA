@@ -37,6 +37,7 @@ public class GameManagerImpl implements GameManager {
         usersMap = new HashMap<>();
         UsersMap = new HashMap<String, User>();
         this.faqs = new ArrayList<>();
+        this.messages = new ArrayList<>();
     }
     public static GameManager getInstance() {
         if (instance==null) instance = new GameManagerImpl();
@@ -128,6 +129,9 @@ public class GameManagerImpl implements GameManager {
         logger.info("Adding Messages...");
         this.messages.add(message);
         return message;
+    }
+    public int MessageNumber(){
+        return this.messages.size();
     }
 
     public int FAQsNumber(){

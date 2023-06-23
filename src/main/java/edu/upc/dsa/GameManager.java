@@ -23,4 +23,5 @@ public interface GameManager {
     FAQ addFAQ(FAQ faq);
     List<Message> getMessages();
     Message addMessage(Message message);
+    int MessageNumber();
 }
