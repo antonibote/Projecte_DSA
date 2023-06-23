@@ -241,31 +241,16 @@ public class GameService {
         }
 
     }
-/*
-    @GET
-    @ApiOperation(value = "Obtain the messages", notes = "View messages")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Successful", response = Message.class, responseContainer = "List"),
-    })
-    @Path("/posts")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getMessages() {
-        List<Message> messages = new ArrayList<>();
-        messages.add(new Message("Nuevos elementos disponibles en la tienda"));
-        messages.add(new Message("Competición por equipos. El proceso de inscripción consistirá en ..."));
-
-        return Response.status(Response.Status.OK).entity(messages).build();
-    }*/
     @GET
     @ApiOperation(value = "Obtain the messages", notes = "View messages")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Successful", response = Message.class, responseContainer = "List")
     })
-    @Path("/posts")
+    @Path("/messages")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getMessages() {
         List<Message> messages = this.manager.getMessages();
         GenericEntity<List<Message>> entity = new GenericEntity<List<Message>>(messages) {};
-        return Response.status(Response.Status.OK).entity(entity).build();
+        return Response.status(200).entity(entity).build();
     }
 }

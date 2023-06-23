@@ -33,7 +33,7 @@ public class QueryHelper {
 
     public static String createQuerySELECT(Class theClass, String pk) {
         StringBuffer sb = new StringBuffer();
-        sb.append("SELECT * FROM ").append(theClass.getSimpleName());
+        sb.append("SELECT * FROM ").append(theClass.getSimpleName().toLowerCase());
         sb.append(" WHERE "+pk+"= ?");
 
         return sb.toString();
@@ -41,7 +41,7 @@ public class QueryHelper {
 
     public static String createQuerySELECTAll(Class theClass) {
         StringBuffer sb = new StringBuffer();
-        sb.append("SELECT * FROM ").append(theClass.getSimpleName());
+        sb.append("SELECT * FROM ").append(theClass.getSimpleName().toLowerCase());
         return sb.toString();
     }
 
@@ -54,7 +54,7 @@ public class QueryHelper {
 
     public static String createQuerySelectWithP(Class theClass, HashMap params) {
         StringBuffer sb = new StringBuffer();
-        sb.append("SELECT * FROM ").append(theClass.getSimpleName());
+        sb.append("SELECT * FROM ").append(theClass.getSimpleName().toLowerCase());
         sb.append(" WHERE (");
 
         params.forEach((k,v) ->{
@@ -72,7 +72,7 @@ public class QueryHelper {
     }
     public static String createQueryUPDATE(Object entity) {
         StringBuffer buffer = new StringBuffer();
-        buffer.append("UPDATE ").append(entity.getClass().getSimpleName());
+        buffer.append("UPDATE ").append(entity.getClass().getSimpleName().toLowerCase());
         buffer.append(" SET ");
         String[] fields = ObjectHelper.getFields(entity);
         String[] var3 = fields;
