@@ -24,4 +24,6 @@ public interface GameManager {
     List<Message> getMessages();
     Message addMessage(Message message);
     int MessageNumber();
+    void addQuestion(Question question) throws SQLException;
+
 }

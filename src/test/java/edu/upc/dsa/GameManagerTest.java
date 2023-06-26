@@ -52,4 +52,5 @@ public class GameManagerTest {
         this.manager.Shop();
         Assert.assertEquals(1,manager.ItemNumber());
     }
+
 }

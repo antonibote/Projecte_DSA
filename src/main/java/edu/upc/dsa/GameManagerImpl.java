@@ -26,6 +26,7 @@ public class GameManagerImpl implements GameManager {
     private HashMap<String, User> UsersMap;
     protected List<FAQ> faqs;
     protected List<Message> messages;
+    protected List<Question> question;
     public List<User> getUsers(){
         return users;
     }
@@ -38,6 +39,8 @@ public class GameManagerImpl implements GameManager {
         UsersMap = new HashMap<String, User>();
         this.faqs = new ArrayList<>();
         this.messages = new ArrayList<>();
+        this.question= new ArrayList<>();
+
     }
     public static GameManager getInstance() {
         if (instance==null) instance = new GameManagerImpl();
@@ -82,7 +85,7 @@ public class GameManagerImpl implements GameManager {
             logger.info(user1.getEmail());
             logger.info(user1.getPassword());
             if (user1.getPassword().equals(credentials.getPassword())) {
-                logger.info("Succesful login " + credentials.getEmail());
+                logger.info("Successful login " + credentials.getEmail());
                 logger.info("id: "+user1.getIdUser());
                 return user1.getIdUser();
             } else if (user1.getEmail() == null) {
@@ -132,6 +135,14 @@ public class GameManagerImpl implements GameManager {
     }
     public int MessageNumber(){
         return this.messages.size();
+    }
+
+    @Override
+    public void addQuestion(Question question) throws SQLException {
+        logger.info("Posting Question...");
+        this.question.add(question);
+
+
     }
 
     public int FAQsNumber(){
